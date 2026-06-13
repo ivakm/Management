@@ -1,0 +1,25 @@
+<aside class="sidebar" [ngClass]="{ collapsed: isCollapsed }" @fadeIn>
+  <div class="sidebar-content">
+    <nav class="nav-menu">
+      <mat-nav-list>
+        @for (item of menuItems; track item.route) {
+          <a
+            mat-list-item
+            [routerLink]="item.route"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-item">
+            <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+            <span matListItemTitle *ngIf="!isCollapsed">{{ item.label }}</span>
+          </a>
+        }
+      </mat-nav-list>
+    </nav>
+  </div>
+
+  <div class="sidebar-footer">
+    <button mat-icon-button class="toggle-button" (click)="toggleSidebar()">
+      <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+    </button>
+  </div>
+</aside>

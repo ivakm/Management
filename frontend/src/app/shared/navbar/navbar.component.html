@@ -1,0 +1,52 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <button mat-icon-button class="menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="brand">
+      <span class="logo">M</span>
+      <span class="brand-name">Management</span>
+    </div>
+  </div>
+
+  <div class="navbar-right">
+    <button mat-icon-button class="notification-button">
+      <mat-icon>notifications</mat-icon>
+      <span class="notification-badge">3</span>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-trigger">
+      <div class="user-avatar">
+        {{ getUserInitials() }}
+      </div>
+      <span class="user-name">{{ authService.currentUser()?.name || 'User' }}</span>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <mat-menu #userMenu="matMenu" class="user-dropdown">
+      <div class="user-info">
+        <div class="user-avatar large">
+          {{ getUserInitials() }}
+        </div>
+        <div class="user-details">
+          <span class="user-name-large">{{ authService.currentUser()?.name || 'User' }}</span>
+          <span class="user-email">{{ authService.currentUser()?.email || '' }}</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </button>
+      <button mat-menu-item routerLink="/customers">
+        <mat-icon>people</mat-icon>
+        <span>Customers</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()" class="logout-button">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</nav>

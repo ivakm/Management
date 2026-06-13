@@ -1,0 +1,163 @@
+<div class="dashboard-container" @fadeIn>
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && dashboardData" class="dashboard-content" @staggerCards>
+    <!-- Stats Cards -->
+    <div class="stats-row">
+      <mat-card class="stat-card" @cardEnter>
+        <div class="stat-content">
+          <div class="stat-icon revenue">
+            <mat-icon>attach_money</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ formatCurrency(dashboardData.totalRevenue) }}</h3>
+            <p>Total Revenue</p>
+          </div>
+        </div>
+        <div class="stat-trend positive">
+          <mat-icon>trending_up</mat-icon>
+          <span>+12.5%</span>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card" @cardEnter>
+        <div class="stat-content">
+          <div class="stat-icon customers">
+            <mat-icon>people</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ dashboardData.newCustomers }}</h3>
+            <p>New Customers</p>
+          </div>
+        </div>
+        <div class="stat-trend positive">
+          <mat-icon>trending_up</mat-icon>
+          <span>+8.2%</span>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card" @cardEnter>
+        <div class="stat-content">
+          <div class="stat-icon users">
+            <mat-icon>active_users</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ dashboardData.activeUsers }}</h3>
+            <p>Active Users</p>
+          </div>
+        </div>
+        <div class="stat-trend positive">
+          <mat-icon>trending_up</mat-icon>
+          <span>+15.3%</span>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card" @cardEnter>
+        <div class="stat-content">
+          <div class="stat-icon conversion">
+            <mat-icon>percent</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ dashboardData.conversionRate }}%</h3>
+            <p>Conversion Rate</p>
+          </div>
+        </div>
+        <div class="stat-trend negative">
+          <mat-icon>trending_down</mat-icon>
+          <span>-2.1%</span>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <mat-card class="chart-card revenue-chart" @cardEnter>
+        <mat-card-header>
+          <mat-card-title>Revenue Overview</mat-card-title>
+          <mat-card-subtitle>Monthly revenue for the past 6 months</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas type="line"></canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="chart-card distribution-chart" @cardEnter>
+        <mat-card-header>
+          <mat-card-title>Customer Distribution</mat-card-title>
+          <mat-card-subtitle>Status breakdown of customers</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas type="doughnut"></canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Activity and Top Customers -->
+    <div class="bottom-row">
+      <mat-card class="activity-card" @cardEnter>
+        <mat-card-header>
+          <mat-card-title>Recent Activity</mat-card-title>
+          <mat-card-subtitle>Latest customer interactions</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="dashboardData.recentActivity" class="activity-table">
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef>Type</th>
+              <td mat-cell *matCellDef="let activity">
+                <mat-chip [color]="getActivityColor(activity.type)" selected>
+                  <mat-icon>{{ getActivityIcon(activity.type) }}</mat-icon>
+                  {{ activity.type }}
+                </mat-chip>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="customer">
+              <th mat-header-cell *matHeaderCellDef>Customer</th>
+              <td mat-cell *matCellDef="let activity">{{ activity.customer }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>Amount</th>
+              <td mat-cell *matCellDef="let activity">
+                {{ activity.amount ? formatCurrency(activity.amount) : '-' }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let activity">{{ formatDate(activity.date) }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="top-customers-card" @cardEnter>
+        <mat-card-header>
+          <mat-card-title>Top Customers</mat-card-title>
+          <mat-card-subtitle>By total spending</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="top-customers-list">
+            <div *ngFor="let customer of dashboardData.topCustomers; let i = index" class="top-customer-item" [style.animation-delay]="i * 100 + 'ms'">
+              <div class="rank">{{ i + 1 }}</div>
+              <img [src]="customer.avatar" [alt]="customer.name" class="avatar">
+              <div class="customer-info">
+                <h4>{{ customer.name }}</h4>
+                <p>{{ formatCurrency(customer.totalSpent) }}</p>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd backend:*)",
+      "Bash(cd frontend:*)",
+      "Bash(cd:*)",
+      "PowerShell(git *)"
+    ]
+  }
+}

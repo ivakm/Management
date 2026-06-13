@@ -1,0 +1,68 @@
+<div class="register-container" @fadeIn>
+  <mat-card class="register-card" @slideIn>
+    <div class="register-header">
+      <div class="logo-container">
+        <div class="logo">
+          <span class="logo-icon">M</span>
+        </div>
+        <h1>Create Account</h1>
+      </div>
+      <p class="subtitle">Join the Management Dashboard</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Full Name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Enter your name">
+        <mat-error *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+          {{ getNameError() }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Enter your email">
+        <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          {{ getEmailError() }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Create a password">
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          {{ getPasswordError() }}
+        </mat-error>
+        <div *ngIf="registerForm.get('password')?.value" class="password-strength">
+          <div class="strength-bar">
+            <div class="strength-fill" [style.width]="getPasswordStrength() === 'weak' ? '33%' : getPasswordStrength() === 'medium' ? '66%' : '100%'" [style.background]="getPasswordStrengthColor()"></div>
+          </div>
+          <span class="strength-label" [style.color]="getPasswordStrengthColor()">{{ getPasswordStrength() | titlecase }}</span>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Confirm your password">
+        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
+          <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+          Passwords do not match
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" class="register-button" [disabled]="registerForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Create Account</span>
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+      </button>
+    </form>
+
+    <div class="register-footer">
+      <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+    </div>
+  </mat-card>
+</div>
