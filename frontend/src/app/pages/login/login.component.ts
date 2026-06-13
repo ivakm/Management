@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { trigger, transition, style, animate } from '@angular/animations';
-import { AuthService } from '../../services';
+import {Component, DestroyRef, inject} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import {Router, ActivatedRoute, RouterLink} from '@angular/router';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar';
+import {EMPTY} from 'rxjs';
+import {catchError, finalize} from 'rxjs/operators';
+import {AuthService} from '../../services';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -22,42 +24,26 @@ import { AuthService } from '../../services';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ]),
-    trigger('slideIn', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-30px)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
-      ])
-    ])
-  ]
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
+  private destroyRef = inject(DestroyRef);
+
+  loginForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]]
+  });
   isLoading = false;
   hidePassword = true;
-
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private snackBar: MatSnackBar
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
-  }
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -65,28 +51,21 @@ export class LoginComponent {
     }
 
     this.isLoading = true;
-    const { email, password } = this.loginForm.value;
+    const {email, password} = this.loginForm.value;
 
-    // TODO remove it in the future
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-    this.router.navigate([returnUrl]);
-
-    return;
-    this.authService.login({ email, password }).subscribe({
-      next: () => {
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-        this.router.navigate([returnUrl]);
-      },
-      error: (error) => {
-        this.isLoading = false;
+    this.authService.login({email, password}).pipe(
+      finalize(() => (this.isLoading = false)),
+      catchError((error) => {
         this.snackBar.open(error.error?.message || 'Login failed. Please try again.', 'Close', {
           duration: 5000,
-          panelClass: ['error-snackbar']
+          panelClass: ['error-snackbar'],
         });
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
+        return EMPTY;
+      }),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(() => {
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+      this.router.navigate([returnUrl]);
     });
   }
 

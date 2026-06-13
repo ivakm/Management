@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { NavbarComponent, SidebarComponent } from './shared';
+import { AuthService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -27,5 +28,9 @@ import { NavbarComponent, SidebarComponent } from './shared';
   ]
 })
 export class AppComponent {
-  title = 'Management Dashboard';
+  private authService = inject(AuthService);
+
+  get isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
 }
