@@ -6,6 +6,7 @@
   border-right: 1px solid #eee;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
   transition: width 0.3s ease, min-width 0.3s ease;
 
   &.collapsed {
@@ -13,8 +14,9 @@
     min-width: 72px;
 
     .nav-item {
+      margin: 4px;
       justify-content: center;
-      padding: 12px;
+      padding: 0;
 
       mat-icon {
         margin-right: 0;
@@ -31,6 +33,7 @@
   flex: 1;
   padding: 16px 0;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .nav-menu {
@@ -77,11 +80,21 @@
 }
 
 .toggle-button {
+  ::ng-deep .mat-mdc-button-persistent-ripple,
+  ::ng-deep .mat-mdc-button-ripple {
+    border-radius: 50%;
+  }
+
+  ::ng-deep .mat-mdc-icon-button {
+    background: #f5f7fa;
+  }
+
   background: #f5f7fa;
+  border-radius: 50%;
   transition: background 0.2s ease;
 
   &:hover {
-    background: #eee;
+    background: #e0e0e0;
   }
 }
 
@@ -111,5 +124,10 @@
   .mat-mdc-list-item {
     height: 48px !important;
     padding: 0 16px !important;
+  }
+
+  .sidebar.collapsed .mat-mdc-list-item {
+    padding: 0 !important;
+    justify-content: center !important;
   }
 }
