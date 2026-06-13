@@ -1,5 +1,5 @@
-<div class="login-container" @fadeIn>
-  <mat-card class="login-card" @slideIn>
+<div class="login-container">
+  <mat-card class="login-card">
     <div class="login-header">
       <div class="logo-container">
         <div class="logo">
@@ -14,9 +14,7 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <input matInput type="email" formControlName="email" placeholder="Enter your email">
-        <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          {{ getEmailError() }}
-        </mat-error>
+        <mat-error>{{ getEmailError() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -25,9 +23,7 @@
         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
           <span class="material-icons">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
         </button>
-        <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          {{ getPasswordError() }}
-        </mat-error>
+        <mat-error>{{ getPasswordError() }}</mat-error>
       </mat-form-field>
 
       <button mat-raised-button color="primary" type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading">

@@ -111,6 +111,37 @@ button {
   }
 }
 
+.mat-mdc-text-field-wrapper {
+  padding: 0 16px !important;
+}
+
+.mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+
+.mat-mdc-form-field-error {
+  color: #f44336 !important;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__trailing {
+  border-color: #f44336 !important;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid .mdc-floating-label {
+  color: #f44336 !important;
+}
+
+.mdc-floating-label:not(.mdc-floating-label--float-above) {
+  padding-left: 4px;
+}
+
+.error-snackbar {
+  background: #f44336;
+  color: white;
+}
+
 // Utility Classes
 .text-center {
   text-align: center;

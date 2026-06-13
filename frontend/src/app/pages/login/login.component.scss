@@ -127,14 +127,3 @@
     margin: 4px 0;
   }
 }
-
-::ng-deep {
-  .mat-form-field-wrapper {
-    padding-bottom: 0;
-  }
-
-  .error-snackbar {
-    background: #f44336;
-    color: white;
-  }
-}
