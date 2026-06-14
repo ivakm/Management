@@ -1,29 +1,11 @@
-/* Global Styles */
 @use '@angular/material' as mat;
 
-// Include the core styles
 @include mat.core();
 
-// Define a custom theme
-/*$primary: mat.define-palette(mat.$indigo-palette, 500);
-$accent: mat.define-palette(mat.$pink-palette, A200);
-$warn: mat.define-palette(mat.$red-palette);*/
+html {
+  font-size: 18px;
+}
 
-// Create the theme object
-/*$theme: mat.define-light-theme((
-  color: (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
-  ),
-  // typography: mat.define-typography-config(),
-  density: 0,
-));*/
-
-// Include theme styles for core and each component
-// @include mat.all-component-themes($theme);
-
-// Custom Theme Colors
 :root {
   --primary-color: #667eea;
   --primary-dark: #5a6fd9;
@@ -39,7 +21,6 @@ $warn: mat.define-palette(mat.$red-palette);*/
   --error-color: #f5576c;
 }
 
-// Global Reset
 * {
   margin: 0;
   padding: 0;
@@ -49,7 +30,6 @@ $warn: mat.define-palette(mat.$red-palette);*/
 html, body {
   height: 100%;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 14px;
   line-height: 1.5;
   color: var(--text-primary);
   background: var(--background-color);
@@ -57,27 +37,25 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-// Scrollbar Styles
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #c1c1c1;
-  border-radius: 4px;
+  border-radius: 0.25rem;
 
   &:hover {
     background: #a8a8a8;
   }
 }
 
-// Link Styles
 a {
   color: var(--primary-color);
   text-decoration: none;
@@ -88,31 +66,29 @@ a {
   }
 }
 
-// Button Base Styles
 button {
   cursor: pointer;
   font-family: inherit;
 }
 
-// Material Overrides
 .mat-mdc-card {
-  border-radius: 16px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08) !important;
 }
 
 .mat-mdc-button, .mat-mdc-raised-button {
-  border-radius: 8px !important;
+  border-radius: 0.5rem !important;
   font-weight: 500 !important;
 }
 
 .mat-mdc-form-field {
   .mat-mdc-form-field-infix {
-    min-height: 48px;
+    min-height: 3rem;
   }
 }
 
 .mat-mdc-text-field-wrapper {
-  padding: 0 16px !important;
+  padding: 0 1rem !important;
 }
 
 .mat-mdc-form-field-error-wrapper {
@@ -134,7 +110,7 @@ button {
 }
 
 .mdc-floating-label:not(.mdc-floating-label--float-above) {
-  padding-left: 4px;
+  padding-left: 0.25rem;
 }
 
 .error-snackbar {
@@ -142,7 +118,6 @@ button {
   color: white;
 }
 
-// Utility Classes
 .text-center {
   text-align: center;
 }
@@ -177,18 +152,17 @@ button {
 }
 
 .gap-8 {
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .gap-16 {
-  gap: 16px;
+  gap: 1rem;
 }
 
 .gap-24 {
-  gap: 24px;
+  gap: 1.5rem;
 }
 
-// Animation Classes
 .fade-in {
   animation: fadeIn 0.3s ease-out;
 }
@@ -196,7 +170,7 @@ button {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(0.625rem);
   }
   to {
     opacity: 1;
@@ -204,7 +178,25 @@ button {
   }
 }
 
-// Gradient Backgrounds
+.navbar .mdc-button__label {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.user-dropdown {
+  .mat-mdc-menu-panel {
+    background-color: white;
+    opacity: 1;
+  }
+
+  .mat-mdc-menu-content {
+    padding: 0.5rem;
+    background-color: white;
+  }
+}
+
 .gradient-primary {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 }
