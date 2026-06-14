@@ -1,7 +1,7 @@
 .customer-dialog {
   h2 {
-    margin: 0 0 16px;
-    font-size: 20px;
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: #1a1a2e;
   }
@@ -10,8 +10,8 @@
 .customer-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  min-width: 300px;
+  gap: 1rem;
+  min-width: 18.75rem;
 }
 
 .full-width {
@@ -19,20 +19,20 @@
 }
 
 mat-dialog-content {
-  padding: 0 24px 16px;
+  padding: 0 1.5rem 1rem;
 }
 
 mat-dialog-actions {
-  padding: 16px 24px;
+  padding: 1rem 1.5rem;
   border-top: 1px solid #eee;
 
   button {
-    margin-left: 12px;
+    margin-left: 0.75rem;
   }
 }
 
 ::ng-deep {
   .mat-mdc-dialog-container {
-    border-radius: 16px !important;
+    border-radius: 1rem !important;
   }
 }
