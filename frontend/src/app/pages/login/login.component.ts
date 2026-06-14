@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar";
 import { EMPTY } from "rxjs";
 import { catchError, finalize } from "rxjs/operators";
-import { AuthService } from "../../services";
+import { AuthService } from "../../services/auth.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({

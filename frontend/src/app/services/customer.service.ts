@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ApiService } from "./api.service";
-import { Customer, PaginatedResponse, CustomerFormData } from "../models";
+import { Customer, PaginatedResponse, CustomerFormData } from "../models/customer.model";
 
 @Injectable({
   providedIn: "root",
@@ -17,10 +17,18 @@ export class CustomerService {
   }): Observable<PaginatedResponse<Customer>> {
     let endpoint = "/customers?";
     if (params) {
-      if (params.search) endpoint += `search=${encodeURIComponent(params.search)}&`;
-      if (params.status) endpoint += `status=${params.status}&`;
-      if (params.page) endpoint += `page=${params.page}&`;
-      if (params.limit) endpoint += `limit=${params.limit}&`;
+      if (params.search) {
+        endpoint += `search=${encodeURIComponent(params.search)}&`;
+      }
+      if (params.status) {
+        endpoint += `status=${params.status}&`;
+      }
+      if (params.page) {
+        endpoint += `page=${params.page}&`;
+      }
+      if (params.limit) {
+        endpoint += `limit=${params.limit}&`;
+      }
     }
     return this.api.get<PaginatedResponse<Customer>>(endpoint);
   }

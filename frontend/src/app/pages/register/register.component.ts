@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar";
 import { MatIconModule } from "@angular/material/icon";
 import { trigger, transition, style, animate } from "@angular/animations";
-import { AuthService } from "../../services";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-register",
@@ -78,9 +78,15 @@ export class RegisterComponent {
 
   getPasswordStrength(): string {
     const password = this.registerForm.get("password")?.value || "";
-    if (password.length < 6) return "weak";
-    if (password.length < 8) return "medium";
-    if (password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) return "strong";
+    if (password.length < 6) {
+      return "weak";
+    }
+    if (password.length < 8) {
+      return "medium";
+    }
+    if (password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
+      return "strong";
+    }
     return "medium";
   }
 
@@ -129,22 +135,34 @@ export class RegisterComponent {
 
   getNameError(): string {
     const name = this.registerForm.get("name");
-    if (name?.hasError("required")) return "Name is required";
-    if (name?.hasError("minlength")) return "Name must be at least 2 characters";
+    if (name?.hasError("required")) {
+      return "Name is required";
+    }
+    if (name?.hasError("minlength")) {
+      return "Name must be at least 2 characters";
+    }
     return "";
   }
 
   getEmailError(): string {
     const email = this.registerForm.get("email");
-    if (email?.hasError("required")) return "Email is required";
-    if (email?.hasError("email")) return "Please enter a valid email";
+    if (email?.hasError("required")) {
+      return "Email is required";
+    }
+    if (email?.hasError("email")) {
+      return "Please enter a valid email";
+    }
     return "";
   }
 
   getPasswordError(): string {
     const password = this.registerForm.get("password");
-    if (password?.hasError("required")) return "Password is required";
-    if (password?.hasError("minlength")) return "Password must be at least 6 characters";
+    if (password?.hasError("required")) {
+      return "Password is required";
+    }
+    if (password?.hasError("minlength")) {
+      return "Password must be at least 6 characters";
+    }
     return "";
   }
 }

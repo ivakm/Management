@@ -9,7 +9,8 @@
     "test": "ng test",
     "e2e": "playwright test",
     "format": "prettier --write \"src/**/*.{ts,html,scss,css,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,html,scss,css,json}\""
+    "format:check": "prettier --check \"src/**/*.{ts,html,scss,css,json}\"",
+    "lint": "eslint \"src/**/*.ts\" --fix"
   },
   "private": true,
   "dependencies": {
