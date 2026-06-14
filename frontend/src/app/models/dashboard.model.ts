@@ -18,7 +18,7 @@ export interface CustomerDistribution {
 
 export interface RecentActivity {
   id: number;
-  type: 'purchase' | 'signup' | 'update';
+  type: "purchase" | "signup" | "update";
   customer: string;
   amount: number | null;
   date: string;

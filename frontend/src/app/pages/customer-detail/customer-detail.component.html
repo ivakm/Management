@@ -1,11 +1,11 @@
 <div class="customer-dialog">
-  <h2 mat-dialog-title>{{ isEditMode ? 'Edit Customer' : 'Add New Customer' }}</h2>
+  <h2 mat-dialog-title>{{ isEditMode ? "Edit Customer" : "Add New Customer" }}</h2>
 
   <mat-dialog-content>
     <form [formGroup]="customerForm" class="customer-form">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Full Name</mat-label>
-        <input matInput formControlName="name" placeholder="Enter customer name">
+        <input matInput formControlName="name" placeholder="Enter customer name" />
         <mat-error *ngIf="customerForm.get('name')?.invalid && customerForm.get('name')?.touched">
           {{ getNameError() }}
         </mat-error>
@@ -13,7 +13,7 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="Enter email address">
+        <input matInput type="email" formControlName="email" placeholder="Enter email address" />
         <mat-error *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.touched">
           {{ getEmailError() }}
         </mat-error>
@@ -21,12 +21,12 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Phone</mat-label>
-        <input matInput formControlName="phone" placeholder="Enter phone number">
+        <input matInput formControlName="phone" placeholder="Enter phone number" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Company</mat-label>
-        <input matInput formControlName="company" placeholder="Enter company name">
+        <input matInput formControlName="company" placeholder="Enter company name" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -46,8 +46,9 @@
       mat-raised-button
       color="primary"
       (click)="onSubmit()"
-      [disabled]="customerForm.invalid || isLoading">
-      <span *ngIf="!isLoading">{{ isEditMode ? 'Update' : 'Create' }}</span>
+      [disabled]="customerForm.invalid || isLoading"
+    >
+      <span *ngIf="!isLoading">{{ isEditMode ? "Update" : "Create" }}</span>
       <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
     </button>
   </mat-dialog-actions>

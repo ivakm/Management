@@ -13,20 +13,31 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="Enter your email">
+        <input matInput type="email" formControlName="email" placeholder="Enter your email" />
         <mat-error>{{ getEmailError() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Password</mat-label>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Enter your password">
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
-          <span class="material-icons">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
+          <span class="material-icons">{{ hidePassword ? "visibility_off" : "visibility" }}</span>
         </button>
         <mat-error>{{ getPasswordError() }}</mat-error>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid || isLoading"
+      >
         <span *ngIf="!isLoading">Sign In</span>
         <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
       </button>

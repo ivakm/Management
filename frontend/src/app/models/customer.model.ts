@@ -4,7 +4,7 @@ export interface Customer {
   email: string;
   phone: string;
   company: string;
-  status: 'active' | 'inactive' | 'pending';
+  status: "active" | "inactive" | "pending";
   avatar: string;
   joinDate: string;
   lastActivity: string;
@@ -27,5 +27,5 @@ export interface CustomerFormData {
   email: string;
   phone: string;
   company: string;
-  status: 'active' | 'inactive' | 'pending';
+  status: "active" | "inactive" | "pending";
 }
