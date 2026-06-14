@@ -1,16 +1,21 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ApiService } from './api.service';
-import { Customer, PaginatedResponse, CustomerFormData } from '../models';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { ApiService } from "./api.service";
+import { Customer, PaginatedResponse, CustomerFormData } from "../models";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class CustomerService {
   constructor(private api: ApiService) {}
 
-  getCustomers(params?: { search?: string; status?: string; page?: number; limit?: number }): Observable<PaginatedResponse<Customer>> {
-    let endpoint = '/customers?';
+  getCustomers(params?: {
+    search?: string;
+    status?: string;
+    page?: number;
+    limit?: number;
+  }): Observable<PaginatedResponse<Customer>> {
+    let endpoint = "/customers?";
     if (params) {
       if (params.search) endpoint += `search=${encodeURIComponent(params.search)}&`;
       if (params.status) endpoint += `status=${params.status}&`;
@@ -25,10 +30,13 @@ export class CustomerService {
   }
 
   createCustomer(customer: CustomerFormData): Observable<{ success: boolean; data: Customer }> {
-    return this.api.post<{ success: boolean; data: Customer }>('/customers', customer);
+    return this.api.post<{ success: boolean; data: Customer }>("/customers", customer);
   }
 
-  updateCustomer(id: number, customer: Partial<CustomerFormData>): Observable<{ success: boolean; data: Customer }> {
+  updateCustomer(
+    id: number,
+    customer: Partial<CustomerFormData>,
+  ): Observable<{ success: boolean; data: Customer }> {
     return this.api.put<{ success: boolean; data: Customer }>(`/customers/${id}`, customer);
   }
 

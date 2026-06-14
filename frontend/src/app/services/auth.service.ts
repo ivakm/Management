@@ -1,10 +1,10 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiService } from './api.service';
-import { User, AuthResponse, LoginRequest, RegisterRequest } from '../models';
+import { Injectable, signal, computed } from "@angular/core";
+import { Router } from "@angular/router";
+import { ApiService } from "./api.service";
+import { User, AuthResponse, LoginRequest, RegisterRequest } from "../models";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
   private currentUserSignal = signal<User | null>(null);
@@ -17,14 +17,14 @@ export class AuthService {
 
   constructor(
     private api: ApiService,
-    private router: Router
+    private router: Router,
   ) {
     this.loadStoredAuth();
   }
 
   private loadStoredAuth(): void {
-    const storedToken = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
 
     if (storedToken && storedUser) {
       this.tokenSignal.set(storedToken);
@@ -33,40 +33,40 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.api.post<AuthResponse>('/auth/login', credentials).pipe(
-      tap(response => {
+    return this.api.post<AuthResponse>("/auth/login", credentials).pipe(
+      tap((response) => {
         if (response.success) {
           this.setAuth(response);
         }
-      })
+      }),
     );
   }
 
   register(userData: RegisterRequest): Observable<AuthResponse> {
-    return this.api.post<AuthResponse>('/auth/register', userData).pipe(
-      tap(response => {
+    return this.api.post<AuthResponse>("/auth/register", userData).pipe(
+      tap((response) => {
         if (response.success) {
           this.setAuth(response);
         }
-      })
+      }),
     );
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.tokenSignal.set(null);
     this.currentUserSignal.set(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(["/login"]);
   }
 
   private setAuth(response: AuthResponse): void {
-    localStorage.setItem('token', response.token);
-    localStorage.setItem('user', JSON.stringify(response.user));
+    localStorage.setItem("token", response.token);
+    localStorage.setItem("user", JSON.stringify(response.user));
     this.tokenSignal.set(response.token);
     this.currentUserSignal.set(response.user);
   }
 }
 
-import { Observable } from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";

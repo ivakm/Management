@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTableModule } from '@angular/material/table';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { trigger, transition, style, animate } from '@angular/animations';
-import { CustomerService } from '../../services';
-import { Customer } from '../../models';
-import {CustomerDetailComponent} from '../customer-detail';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatTableModule } from "@angular/material/table";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatDialogModule, MatDialog } from "@angular/material/dialog";
+import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { trigger, transition, style, animate } from "@angular/animations";
+import { CustomerService } from "../../services";
+import { Customer } from "../../models";
+import { CustomerDetailComponent } from "../customer-detail";
 
 @Component({
-  selector: 'app-customers',
+  selector: "app-customers",
   standalone: true,
   imports: [
     CommonModule,
@@ -35,24 +35,24 @@ import {CustomerDetailComponent} from '../customer-detail';
     MatSelectModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
-  templateUrl: './customers.component.html',
-  styleUrl: './customers.component.scss',
+  templateUrl: "./customers.component.html",
+  styleUrl: "./customers.component.scss",
   animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
+    trigger("fadeIn", [
+      transition(":enter", [
         style({ opacity: 0 }),
-        animate('400ms ease-out', style({ opacity: 1 }))
-      ])
+        animate("400ms ease-out", style({ opacity: 1 })),
+      ]),
     ]),
-    trigger('slideIn', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ])
-  ]
+    trigger("slideIn", [
+      transition(":enter", [
+        style({ opacity: 0, transform: "translateY(20px)" }),
+        animate("400ms ease-out", style({ opacity: 1, transform: "translateY(0)" })),
+      ]),
+    ]),
+  ],
 })
 export class CustomersComponent implements OnInit {
   isLoading = true;
@@ -61,7 +61,15 @@ export class CustomersComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
 
-  displayedColumns: string[] = ['avatar', 'name', 'email', 'company', 'status', 'totalSpent', 'actions'];
+  displayedColumns: string[] = [
+    "avatar",
+    "name",
+    "email",
+    "company",
+    "status",
+    "totalSpent",
+    "actions",
+  ];
 
   filterForm: FormGroup;
 
@@ -69,11 +77,11 @@ export class CustomersComponent implements OnInit {
     private customerService: CustomerService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.filterForm = this.fb.group({
-      search: [''],
-      status: ['all']
+      search: [""],
+      status: ["all"],
     });
   }
 
@@ -91,26 +99,28 @@ export class CustomersComponent implements OnInit {
     this.isLoading = true;
     const { search, status } = this.filterForm.value;
 
-    this.customerService.getCustomers({
-      search: search || undefined,
-      status: status !== 'all' ? status : undefined,
-      page: this.currentPage,
-      limit: this.pageSize
-    }).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.customers = response.data;
-          this.totalCustomers = response.pagination.total;
-        }
-      },
-      error: (error) => {
-        console.error('Error loading customers:', error);
-        this.snackBar.open('Failed to load customers', 'Close', { duration: 5000 });
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    });
+    this.customerService
+      .getCustomers({
+        search: search || undefined,
+        status: status !== "all" ? status : undefined,
+        page: this.currentPage,
+        limit: this.pageSize,
+      })
+      .subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.customers = response.data;
+            this.totalCustomers = response.pagination.total;
+          }
+        },
+        error: (error) => {
+          console.error("Error loading customers:", error);
+          this.snackBar.open("Failed to load customers", "Close", { duration: 5000 });
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+      });
   }
 
   onPageChange(page: number): void {
@@ -123,29 +133,29 @@ export class CustomersComponent implements OnInit {
   }
 
   formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(amount);
   }
 
   formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   }
 
   openCustomerDialog(customer?: Customer): void {
     const dialogRef = this.dialog.open(CustomerDetailComponent, {
-      width: '600px',
-      data: { customer }
+      width: "600px",
+      data: { customer },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.loadCustomers();
       }
@@ -153,15 +163,15 @@ export class CustomersComponent implements OnInit {
   }
 
   deleteCustomer(id: number): void {
-    if (confirm('Are you sure you want to delete this customer?')) {
+    if (confirm("Are you sure you want to delete this customer?")) {
       this.customerService.deleteCustomer(id).subscribe({
         next: () => {
-          this.snackBar.open('Customer deleted successfully', 'Close', { duration: 3000 });
+          this.snackBar.open("Customer deleted successfully", "Close", { duration: 3000 });
           this.loadCustomers();
         },
         error: () => {
-          this.snackBar.open('Failed to delete customer', 'Close', { duration: 5000 });
-        }
+          this.snackBar.open("Failed to delete customer", "Close", { duration: 5000 });
+        },
       });
     }
   }

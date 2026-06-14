@@ -206,7 +206,8 @@
   .filters-form {
     flex-direction: column;
 
-    .search-field, .status-field {
+    .search-field,
+    .status-field {
       width: 100%;
     }
   }

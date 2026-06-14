@@ -1,3 +1,3 @@
-export * from './user.model';
-export * from './customer.model';
-export * from './dashboard.model';
+export * from "./user.model";
+export * from "./customer.model";
+export * from "./dashboard.model";

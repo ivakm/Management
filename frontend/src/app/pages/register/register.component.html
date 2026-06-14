@@ -13,7 +13,7 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Full Name</mat-label>
-        <input matInput type="text" formControlName="name" placeholder="Enter your name">
+        <input matInput type="text" formControlName="name" placeholder="Enter your name" />
         <mat-error *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
           {{ getNameError() }}
         </mat-error>
@@ -21,7 +21,7 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="Enter your email">
+        <input matInput type="email" formControlName="email" placeholder="Enter your email" />
         <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
           {{ getEmailError() }}
         </mat-error>
@@ -29,33 +29,73 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Password</mat-label>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Create a password">
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="Create a password"
+        />
         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
-          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <mat-icon>{{ hidePassword ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
-        <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <mat-error
+          *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+        >
           {{ getPasswordError() }}
         </mat-error>
         <div *ngIf="registerForm.get('password')?.value" class="password-strength">
           <div class="strength-bar">
-            <div class="strength-fill" [style.width]="getPasswordStrength() === 'weak' ? '33%' : getPasswordStrength() === 'medium' ? '66%' : '100%'" [style.background]="getPasswordStrengthColor()"></div>
+            <div
+              class="strength-fill"
+              [style.width]="
+                getPasswordStrength() === 'weak'
+                  ? '33%'
+                  : getPasswordStrength() === 'medium'
+                    ? '66%'
+                    : '100%'
+              "
+              [style.background]="getPasswordStrengthColor()"
+            ></div>
           </div>
-          <span class="strength-label" [style.color]="getPasswordStrengthColor()">{{ getPasswordStrength() | titlecase }}</span>
+          <span class="strength-label" [style.color]="getPasswordStrengthColor()">{{
+            getPasswordStrength() | titlecase
+          }}</span>
         </div>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Confirm Password</mat-label>
-        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Confirm your password">
-        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
-          <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <input
+          matInput
+          [type]="hideConfirmPassword ? 'password' : 'text'"
+          formControlName="confirmPassword"
+          placeholder="Confirm your password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hideConfirmPassword = !hideConfirmPassword"
+          type="button"
+        >
+          <mat-icon>{{ hideConfirmPassword ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
-        <mat-error *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+        <mat-error
+          *ngIf="
+            registerForm.hasError('passwordMismatch') &&
+            registerForm.get('confirmPassword')?.touched
+          "
+        >
           Passwords do not match
         </mat-error>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" class="register-button" [disabled]="registerForm.invalid || isLoading">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="register-button"
+        [disabled]="registerForm.invalid || isLoading"
+      >
         <span *ngIf="!isLoading">Create Account</span>
         <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
       </button>

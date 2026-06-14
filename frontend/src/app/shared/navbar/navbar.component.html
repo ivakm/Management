@@ -19,7 +19,7 @@
       <div class="user-avatar">
         {{ getUserInitials() }}
       </div>
-      <span class="user-name">{{ authService.currentUser()?.name || 'User' }}</span>
+      <span class="user-name">{{ authService.currentUser()?.name || "User" }}</span>
       <mat-icon>expand_more</mat-icon>
     </button>
 
@@ -29,8 +29,8 @@
           {{ getUserInitials() }}
         </div>
         <div class="user-details">
-          <span class="user-name-large">{{ authService.currentUser()?.name || 'User' }}</span>
-          <span class="user-email">{{ authService.currentUser()?.email || '' }}</span>
+          <span class="user-name-large">{{ authService.currentUser()?.name || "User" }}</span>
+          <span class="user-email">{{ authService.currentUser()?.email || "" }}</span>
         </div>
       </div>
       <mat-divider></mat-divider>
