@@ -8,8 +8,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar";
-import { CustomerService } from "../../services";
-import { Customer } from "../../models";
+import { CustomerService } from "../../services/customer.service";
+import { Customer } from "../../models/customer.model";
 
 @Component({
   selector: "app-customer-detail",
@@ -93,15 +93,23 @@ export class CustomerDetailComponent {
 
   getNameError(): string {
     const name = this.customerForm.get("name");
-    if (name?.hasError("required")) return "Name is required";
-    if (name?.hasError("minlength")) return "Name must be at least 2 characters";
+    if (name?.hasError("required")) {
+      return "Name is required";
+    }
+    if (name?.hasError("minlength")) {
+      return "Name must be at least 2 characters";
+    }
     return "";
   }
 
   getEmailError(): string {
     const email = this.customerForm.get("email");
-    if (email?.hasError("required")) return "Email is required";
-    if (email?.hasError("email")) return "Please enter a valid email";
+    if (email?.hasError("required")) {
+      return "Email is required";
+    }
+    if (email?.hasError("email")) {
+      return "Please enter a valid email";
+    }
     return "";
   }
 }

@@ -8,7 +8,7 @@ import {
   RecentActivity,
   TopCustomer,
   DashboardData,
-} from "../models";
+} from "../models/dashboard.model";
 
 @Injectable({
   providedIn: "root",

@@ -3,8 +3,9 @@ import { RouterOutlet } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { trigger, transition, style, animate } from "@angular/animations";
-import { NavbarComponent, SidebarComponent } from "./shared";
-import { AuthService } from "./services";
+import { NavbarComponent } from "./shared/navbar/navbar.component";
+import { SidebarComponent } from "./shared/sidebar/sidebar.component";
+import { AuthService } from "./services/auth.service";
 
 @Component({
   selector: "app-root",

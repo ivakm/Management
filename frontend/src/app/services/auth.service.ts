@@ -1,7 +1,7 @@
 import { Injectable, signal, computed } from "@angular/core";
 import { Router } from "@angular/router";
 import { ApiService } from "./api.service";
-import { User, AuthResponse, LoginRequest, RegisterRequest } from "../models";
+import { User, AuthResponse, LoginRequest, RegisterRequest } from "../models/user.model";
 
 @Injectable({
   providedIn: "root",

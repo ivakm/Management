@@ -14,9 +14,9 @@ import { MatDialogModule, MatDialog } from "@angular/material/dialog";
 import { MatSnackBarModule, MatSnackBar } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { trigger, transition, style, animate } from "@angular/animations";
-import { CustomerService } from "../../services";
-import { Customer } from "../../models";
-import { CustomerDetailComponent } from "../customer-detail";
+import { CustomerService } from "../../services/customer.service";
+import { Customer } from "../../models/customer.model";
+import { CustomerDetailComponent } from "../customer-detail/customer-detail.component";
 
 @Component({
   selector: "app-customers",

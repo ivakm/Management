@@ -9,8 +9,8 @@ import { MatChipsModule } from "@angular/material/chips";
 
 import { ChartConfiguration, ChartType } from "chart.js";
 import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
-import { DashboardService } from "../../services";
-import { DashboardData } from "../../models";
+import { DashboardService } from "../../services/dashboard.service";
+import { DashboardData } from "../../models/dashboard.model";
 
 @Component({
   selector: "app-dashboard",
@@ -153,7 +153,9 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateCharts(): void {
-    if (!this.dashboardData) return;
+    if (!this.dashboardData) {
+      return;
+    }
 
     // Update revenue chart
     this.revenueChartData = {
